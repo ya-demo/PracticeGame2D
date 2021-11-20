@@ -6,9 +6,9 @@ public class AttackCollider : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Enemy")
-        {
-            Destroy(collision.gameObject);
-        }
+        // if(collision.tag == "Enemy")
+        // {
+        //     Destroy(collision.gameObject);
+        // }
     }
 }

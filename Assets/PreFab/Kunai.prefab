@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: -5542659125570680281}
   - component: {fileID: -8210278725697668568}
   - component: {fileID: -3540223449572735532}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Kunai
-  m_TagString: Untagged
+  m_TagString: PlayerAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

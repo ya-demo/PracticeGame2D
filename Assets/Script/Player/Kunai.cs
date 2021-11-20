@@ -29,12 +29,7 @@ public class Kunai : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Enemy")
-        {
-            Destroy(collision.gameObject);
-            Destroy(this.gameObject);
-        }
-        if(collision.tag == "Ground")
+        if(collision != null)
         {
             Destroy(this.gameObject);
         }
