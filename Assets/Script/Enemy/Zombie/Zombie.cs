@@ -16,6 +16,10 @@ public class Zombie : MonoBehaviour
     protected GameObject player;
     public GameObject attackCollider;
 
+    [SerializeField]
+    protected AudioClip[] myAudioClips;
+    protected AudioSource myAudio;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -28,6 +32,7 @@ public class Zombie : MonoBehaviour
         myAnim = GetComponent<Animator>();
         myCollider = GetComponent<BoxCollider2D>();
         mySr = GetComponent<SpriteRenderer>();
+        myAudio = GetComponent<AudioSource>();
         player = GameObject.Find("Player");
     }
 
@@ -57,6 +62,7 @@ public class Zombie : MonoBehaviour
             {
                 return;
             }
+            myAudio.PlayOneShot(myAudioClips[1]);
             myAnim.SetTrigger("Attack");
             isAttackCheck = true;
             return;
@@ -120,6 +126,7 @@ public class Zombie : MonoBehaviour
     {
         if(collision.tag == "PlayerAttack")
         {
+            myAudio.PlayOneShot(myAudioClips[0]);
             life--;
             if(life > 0)
             {

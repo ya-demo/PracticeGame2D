@@ -12,6 +12,7 @@ public class PumpkinMan : MonoBehaviour
     Vector3 slideTarget;
     BoxCollider2D myCollider;
     SpriteRenderer mySr;
+    AudioSource myAudio;
 
     // Start is called before the first frame update
     void Awake()
@@ -19,6 +20,7 @@ public class PumpkinMan : MonoBehaviour
         myAnim = GetComponent<Animator>();
         myCollider = GetComponent<BoxCollider2D>();
         mySr = GetComponent<SpriteRenderer>();
+        myAudio = GetComponent<AudioSource>();
         player = GameObject.Find("Player");
         isAlive = true;
         isIdle = true;
@@ -155,6 +157,7 @@ public class PumpkinMan : MonoBehaviour
             if(!canBeHurt)
                 return;
 
+            myAudio.PlayOneShot(myAudio.clip);
             life--;
             if(life < 1)
             {

@@ -15,6 +15,10 @@ public class Player : MonoBehaviour
     Rigidbody2D myRigi;
     SpriteRenderer mySr;
 
+    public AudioClip[] myAudioClips;
+    AudioSource myAudio;
+
+
     public GameObject attackCollider;
     public GameObject kunaiPrefab;
 
@@ -30,6 +34,7 @@ public class Player : MonoBehaviour
         isHurt = false;
         canJump = true;
         canBeHurt = true;
+        myAudio = GetComponent<AudioSource>();
         myAnim = GetComponent<Animator>();
         myRigi = GetComponent<Rigidbody2D>();
         mySr = GetComponent<SpriteRenderer>();
@@ -157,6 +162,7 @@ public class Player : MonoBehaviour
     {
         if(collider.tag == "Enemy" && isHurt == false && canBeHurt == true)
         {
+            myAudio.PlayOneShot(myAudioClips[0]);
             playerLife--;
             if(playerLife >= 1)
             {
@@ -186,6 +192,7 @@ public class Player : MonoBehaviour
     {
         if(collider.tag == "Enemy" && isHurt == false && canBeHurt == true)
         {
+            myAudio.PlayOneShot(myAudioClips[0]);
             playerLife--;
             if(playerLife >= 1)
             {
@@ -209,6 +216,11 @@ public class Player : MonoBehaviour
                 myAnim.SetBool("Dead", true);
             }
         }
+        if(collider.tag == "Item")
+        {
+            myAudio.PlayOneShot(myAudioClips[1]);
+            Destroy(collider.gameObject);
+        }
     }
 
     IEnumerator SetIsHurtFalse()
@@ -221,4 +233,15 @@ public class Player : MonoBehaviour
         canBeHurt = true;
         mySr.color = new Color(mySr.color.r, mySr.color.g, mySr.color.b, 1.0f);
     }
+
+    public void PlaySwordEffect()
+    {
+        myAudio.PlayOneShot(myAudioClips[3]);
+    }
+
+    public void PlayKunaiEffect()
+    {
+        myAudio.PlayOneShot(myAudioClips[2]);
+    }
 }
+
