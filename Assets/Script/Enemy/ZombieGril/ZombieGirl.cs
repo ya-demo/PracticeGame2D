@@ -76,7 +76,6 @@ public class ZombieGirl : Zombie
             {
                 transform.localScale = new Vector3(1, 1, 1);
             }
-
             if(transform.position == turnPoint)
             {
                 isBattleMode = true;
