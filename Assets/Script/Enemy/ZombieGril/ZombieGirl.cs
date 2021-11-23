@@ -5,52 +5,85 @@ using UnityEngine;
 public class ZombieGirl : Zombie
 {
     public float RunSpeed;
+    public bool isBattleMode;
 
-    
+    protected override void Awake()
+    {
+        base.Awake();
+        isBattleMode = true;
+    }
+
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
+        base.OnTriggerEnter2D(collision);
+        if(collision.tag == "StopPoint")
+        {
+            isBattleMode = false;
+        }
+    }
+
     protected override void MoveAndAttack()
     {
-         if(life < 1)    
+        if(life < 1)    
         {
             return;
         }
 
-        if(Vector3.Distance(player.transform.position, transform.position) < 4f)
+        if(isBattleMode)
         {
-            if(player.transform.position.x <= transform.position.x)
+            if(Vector3.Distance(player.transform.position, transform.position) < 4f)
+            {
+                if(player.transform.position.x <= transform.position.x)
+                {
+                    transform.localScale = new Vector3(-1, 1, 1);
+                }else {
+                    transform.localScale = new Vector3(1, 1, 1);
+                }
+
+                Vector3 newTarget = new Vector3(player.transform.position.x, transform.position.y, transform.position.z);
+                if(myAnim.GetCurrentAnimatorStateInfo(0).IsName("Work"))
+                {
+                    transform.position = Vector3.MoveTowards(transform.position, newTarget, RunSpeed * Time.deltaTime);
+                }
+
+                isAttackCheck = true;
+                return;
+            }else{
+                if(isAttackCheck)
+                {
+                    if(transform.position.x > turnPoint.x)
+                    {
+                        transform.localScale = new Vector3(-1, 1, 1);
+                    }else if(transform.position.x < turnPoint.x)
+                    {
+                        transform.localScale = new Vector3(1, 1, 1);
+                    }else{
+                        if(turnPoint == targetPosition)
+                        {
+                            StartCoroutine(Turn(false));
+                        }else{                    
+                            StartCoroutine(Turn(true));
+                        }
+                    }
+                    isAttackCheck = false;
+                }
+            }
+        }else{
+            if(transform.position.x > turnPoint.x)
             {
                 transform.localScale = new Vector3(-1, 1, 1);
-            }else {
+            }else if(transform.position.x < turnPoint.x)
+            {
                 transform.localScale = new Vector3(1, 1, 1);
             }
 
-            Vector3 newTarget = new Vector3(player.transform.position.x, transform.position.y, transform.position.z);
-            if(myAnim.GetCurrentAnimatorStateInfo(0).IsName("Work"))
+            if(transform.position == turnPoint)
             {
-                transform.position = Vector3.MoveTowards(transform.position, newTarget, RunSpeed * Time.deltaTime);
-            }
-
-            isAttackCheck = true;
-            return;
-        }else{
-            if(isAttackCheck)
-            {
-                if(transform.position.x > turnPoint.x)
-                {
-                    transform.localScale = new Vector3(-1, 1, 1);
-                }else if(transform.position.x < turnPoint.x)
-                {
-                    transform.localScale = new Vector3(1, 1, 1);
-                }else{
-                    if(turnPoint == targetPosition)
-                    {
-                        StartCoroutine(Turn(false));
-                    }else{                    
-                        StartCoroutine(Turn(true));
-                    }
-                }
-                isAttackCheck = false;
+                isBattleMode = true;
             }
         }
+
+        
 
         if(transform.position.x == targetPosition.x)
         {
@@ -73,4 +106,6 @@ public class ZombieGirl : Zombie
             transform.position = Vector3.MoveTowards(transform.position, turnPoint, mySpeed * Time.deltaTime);
         }
     }
+
+    
 }

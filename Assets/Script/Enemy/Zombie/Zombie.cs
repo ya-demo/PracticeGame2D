@@ -21,14 +21,10 @@ public class Zombie : MonoBehaviour
     protected AudioSource myAudio;
 
     // Start is called before the first frame update
-    void Awake()
+    protected virtual void Awake()
     {
-        life = 3;
         isFirstTime = true;
         isAttackCheck = false;
-        targetPosition = new Vector3(-7, transform.position.y, transform.position.z);
-        originPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-        mySpeed = 1;
         myAnim = GetComponent<Animator>();
         myCollider = GetComponent<BoxCollider2D>();
         mySr = GetComponent<SpriteRenderer>();
@@ -122,7 +118,7 @@ public class Zombie : MonoBehaviour
         attackCollider.SetActive(false);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag == "PlayerAttack")
         {

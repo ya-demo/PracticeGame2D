@@ -186,6 +186,11 @@ public class Player : MonoBehaviour
                 myAnim.SetBool("Dead", true);
             }
         }
+        if(collider.tag == "Item")
+        {
+            myAudio.PlayOneShot(myAudioClips[1]);
+            Destroy(collider.gameObject);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
@@ -220,6 +225,18 @@ public class Player : MonoBehaviour
         {
             myAudio.PlayOneShot(myAudioClips[1]);
             Destroy(collider.gameObject);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.collider.name == "BoundBottom")
+        {
+            playerLife = 0;
+            isHurt = true;
+            myRigi.velocity = new Vector2(0f, 0f);
+            myAnim.SetBool("Dead", true);
+            myAudio.PlayOneShot(myAudioClips[4]);
         }
     }
 
