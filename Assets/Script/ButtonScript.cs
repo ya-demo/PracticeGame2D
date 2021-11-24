@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ButtonScript : MonoBehaviour
 {
@@ -32,5 +33,6 @@ public class ButtonScript : MonoBehaviour
         myAnim.SetBool("Run", true);
         GameObject playButton = GameObject.Find("Canvas/SafeAreaPanel/PlayButton");
         playButton.SetActive(false);
+        SceneManager.LoadScene("SelectLevel");
     }
 }
