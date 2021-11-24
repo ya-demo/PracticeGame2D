@@ -496,7 +496,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4509220651648022824}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4509220652857444715}
+        m_TargetAssemblyTypeName: ButtonScript, Assembly-CSharp
+        m_MethodName: MenuBtnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4509220651698530512
 GameObject:
   m_ObjectHideFlags: 0
@@ -616,7 +628,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4509220651698530517}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4509220652857444715}
+        m_TargetAssemblyTypeName: ButtonScript, Assembly-CSharp
+        m_MethodName: ReplyBtnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4509220651864100660
 GameObject:
   m_ObjectHideFlags: 0
@@ -1114,7 +1138,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4509220652231890414}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4509220652857444715}
+        m_TargetAssemblyTypeName: ButtonScript, Assembly-CSharp
+        m_MethodName: LevelSelectBtnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4509220652448809787
 GameObject:
   m_ObjectHideFlags: 0
@@ -1412,6 +1448,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectPanel: {fileID: 4509220651966024120}
   stopButton: {fileID: 4509220651441757635}
+  levelSelectBtn: {fileID: 4509220652231890413}
+  MenuBtn: {fileID: 4509220651648022823}
+  ReplyBtn: {fileID: 4509220651698530512}
 --- !u!1 &4509220652897422750
 GameObject:
   m_ObjectHideFlags: 0
