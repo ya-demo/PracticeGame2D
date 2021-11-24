@@ -24,4 +24,13 @@ public class ButtonScript : MonoBehaviour
         selectPanel.SetActive(false);
         Time.timeScale = 1.0f;
     }
+
+    public void MainMenuPlayButton()
+    {
+        GameObject mainMenuPlayer = GameObject.Find("MenuPlayer");
+        Animator myAnim = mainMenuPlayer.GetComponent<Animator>();
+        myAnim.SetBool("Run", true);
+        GameObject playButton = GameObject.Find("Canvas/SafeAreaPanel/PlayButton");
+        playButton.SetActive(false);
+    }
 }
