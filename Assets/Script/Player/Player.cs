@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
     [HideInInspector]
     public bool isJumpPressed, isAttack, canJump, isHurt, canBeHurt;
-
+    [HideInInspector]
     public int playerLife;
+    [HideInInspector]
+    public int playerKunai;
+    [HideInInspector]
+    public int playerStone;
     public float mySpeed;
     public float jumpForce;
     [HideInInspector]
@@ -18,7 +23,7 @@ public class Player : MonoBehaviour
     public AudioClip[] myAudioClips;
     AudioSource myAudio;
 
-
+    Canvas myCanvas;
     public GameObject attackCollider;
     public GameObject kunaiPrefab;
 
@@ -26,7 +31,9 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        playerLife = 3;
+        playerLife = PlayerPrefs.GetInt("PlayerLife");
+        playerKunai = PlayerPrefs.GetInt("PlayerKunai");
+        playerStone = PlayerPrefs.GetInt("PlayerStone");
         mySpeed = 5;
         jumpForce = 20;
         isJumpPressed = false;
@@ -38,6 +45,7 @@ public class Player : MonoBehaviour
         myAnim = GetComponent<Animator>();
         myRigi = GetComponent<Rigidbody2D>();
         mySr = GetComponent<SpriteRenderer>();
+        myCanvas = GameObject.Find("/Canvas").GetComponent<Canvas>();
     }
 
     // Start is called before the first frame update
@@ -60,11 +68,19 @@ public class Player : MonoBehaviour
             isAttack = true;
             canJump = false;
         }
-        if(Input.GetKeyDown(KeyCode.G) && isHurt == false)
+        if(Input.GetKeyDown(KeyCode.G) && isHurt == false 
+        && !myAnim.GetCurrentAnimatorStateInfo(0).IsName("Throw") 
+        && !myAnim.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
         {
-            myAnim.SetTrigger("Throw");
-            isAttack = true;
-            canJump = false;
+            if(playerKunai > 0)
+            {
+                playerKunai --;
+                PlayerPrefs.SetInt("PlayerKunai", playerKunai);
+                myCanvas.KunaiUpdate();
+                myAnim.SetTrigger("Throw");
+                isAttack = true;
+                canJump = false;
+            }
         }
     }
 
@@ -164,6 +180,8 @@ public class Player : MonoBehaviour
         {
             myAudio.PlayOneShot(myAudioClips[0]);
             playerLife--;
+            PlayerPrefs.SetInt("PlayerLife", playerLife);
+            myCanvas.LifeUpdate();
             if(playerLife >= 1)
             {
                 isHurt = true;
@@ -184,12 +202,13 @@ public class Player : MonoBehaviour
                 isHurt = true;
                 myRigi.velocity = new Vector2(0f, 0f);
                 myAnim.SetBool("Dead", true);
+                PlayerPrefs.SetInt("PlayerLife", 3);
+                FadeInOut.instance.SceneFadeInOut("SelectLevel");
             }
         }
         if(collider.tag == "Item")
         {
             myAudio.PlayOneShot(myAudioClips[1]);
-            Destroy(collider.gameObject);
         }
     }
 
@@ -199,6 +218,8 @@ public class Player : MonoBehaviour
         {
             myAudio.PlayOneShot(myAudioClips[0]);
             playerLife--;
+            PlayerPrefs.SetInt("PlayerLife", playerLife);
+            myCanvas.LifeUpdate();
             if(playerLife >= 1)
             {
                 isHurt = true;
@@ -219,12 +240,14 @@ public class Player : MonoBehaviour
                 isHurt = true;
                 myRigi.velocity = new Vector2(0f, 0f);
                 myAnim.SetBool("Dead", true);
+                PlayerPrefs.SetInt("PlayerLife", 3);
+                FadeInOut.instance.SceneFadeInOut("SelectLevel");
+
             }
         }
         if(collider.tag == "Item")
         {
             myAudio.PlayOneShot(myAudioClips[1]);
-            Destroy(collider.gameObject);
         }
     }
 
@@ -233,10 +256,16 @@ public class Player : MonoBehaviour
         if(collision.collider.name == "BoundBottom")
         {
             playerLife = 0;
+            PlayerPrefs.SetInt("PlayerLife", playerLife);
+            myCanvas.LifeUpdate();
+            PlayerPrefs.SetInt("PlayerLife", 3);
+
             isHurt = true;
             myRigi.velocity = new Vector2(0f, 0f);
             myAnim.SetBool("Dead", true);
             myAudio.PlayOneShot(myAudioClips[4]);
+
+            FadeInOut.instance.SceneFadeInOut("SelectLevel");
         }
     }
 

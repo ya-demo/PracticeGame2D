@@ -30,6 +30,8 @@ public class ButtonScript : MonoBehaviour
     public void YesDeleteButton()
     {
         PlayerPrefs.DeleteAll();
+        IsFirstTimePlayCheck checkScript = GameObject.Find("IsFirstTimePlayCheck").GetComponent<IsFirstTimePlayCheck>();
+        checkScript.FirstTimePlayState();
         RectTransform dataDeleteTransform = GameObject.Find("Canvas/SafeAreaPanel/DataDeleteImage").GetComponent<RectTransform>();
         dataDeleteTransform.anchoredPosition = new Vector2(0f,1500f);
     }

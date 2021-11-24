@@ -196,6 +196,8 @@ MonoBehaviour:
   isHurt: 0
   canBeHurt: 0
   playerLife: 0
+  playerKunai: 0
+  playerStone: 0
   mySpeed: 0
   jumpForce: 0
   myAnim: {fileID: 0}
@@ -204,6 +206,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 71baf561f85cf4718baaddd15a0bac4d, type: 3}
   - {fileID: 8300000, guid: 3bd9815a62b0d4907a221c0d95efb6e2, type: 3}
   - {fileID: 8300000, guid: adde42ec57bc04f26841a6f03c20bf4c, type: 3}
+  - {fileID: 8300000, guid: cee212a68b7324925b00a6b3777037b6, type: 3}
   attackCollider: {fileID: 4384192992303772049}
   kunaiPrefab: {fileID: 8339869232692637396, guid: 7fbea70d6da424288823d42048fe1ec8, type: 3}
 --- !u!61 &4384192991941799052
