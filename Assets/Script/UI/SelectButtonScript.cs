@@ -36,26 +36,38 @@ public class SelectButtonScript : MonoBehaviour
 
     public void GoToLevel1()
     {
+        BGMController myBGM = GameObject.Find("BGMController").GetComponent<BGMController>();
+        myBGM.myAudio.PlayOneShot(myBGM.myButtonClips[0]);
         FadeInOut.instance.SceneFadeInOut("Level1");
     }
 
     public void GoToLevel2()
     {
+        BGMController myBGM = GameObject.Find("BGMController").GetComponent<BGMController>();
         if(clearLevel >= 1)
         {
+            myBGM.myAudio.PlayOneShot(myBGM.myButtonClips[0]);
             FadeInOut.instance.SceneFadeInOut("Level2");
+        }else{
+            myBGM.myAudio.PlayOneShot(myBGM.myButtonClips[1]);
         }
     }
     public void GoToLevel3()
     {
+        BGMController myBGM = GameObject.Find("BGMController").GetComponent<BGMController>();
         if(clearLevel >= 2)
         {
+            myBGM.myAudio.PlayOneShot(myBGM.myButtonClips[0]);
             FadeInOut.instance.SceneFadeInOut("Level3");
+        }else{
+            myBGM.myAudio.PlayOneShot(myBGM.myButtonClips[1]);
         }
     }
 
     public void GoToMenu()
     {
+        BGMController myBGM = GameObject.Find("BGMController").GetComponent<BGMController>();
+        myBGM.myAudio.PlayOneShot(myBGM.myButtonClips[0]);
         FadeInOut.instance.SceneFadeInOut("MainMenu");
     }
 }

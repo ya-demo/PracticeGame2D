@@ -212,6 +212,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a420a0f8888474e3082ac2e21e5843c0, type: 3}
   - {fileID: 8300000, guid: adde42ec57bc04f26841a6f03c20bf4c, type: 3}
   RunSpeed: 2
+  isBattleMode: 0
 --- !u!82 &586801001936698047
 AudioSource:
   m_ObjectHideFlags: 0
@@ -224,7 +225,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.153
   m_Pitch: 1
   Loop: 0
   Mute: 0
