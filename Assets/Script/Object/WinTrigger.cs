@@ -16,6 +16,7 @@ public class WinTrigger : MonoBehaviour
             {
                 PlayerPrefs.SetInt("ClearLevel", level);
             }
+            Time.timeScale = 0f;
             FadeInOut.instance.SceneFadeInOut("SelectLevel");
         }
     }

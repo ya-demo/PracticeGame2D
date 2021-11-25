@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -26,7 +27,7 @@ public class Player : MonoBehaviour
     Canvas myCanvas;
     public GameObject attackCollider;
     public GameObject kunaiPrefab;
-
+    InputAction playerMove, playerJump, playerAttack, playerThrow;
     private float kunaiDistance;
 
     private void Awake()
@@ -46,29 +47,27 @@ public class Player : MonoBehaviour
         myRigi = GetComponent<Rigidbody2D>();
         mySr = GetComponent<SpriteRenderer>();
         myCanvas = GameObject.Find("/Canvas").GetComponent<Canvas>();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
+        playerMove = GetComponent<PlayerInput>().currentActionMap["Move"];
+        playerJump = GetComponent<PlayerInput>().currentActionMap["Jump"];
+        playerAttack = GetComponent<PlayerInput>().currentActionMap["Attack"];
+        playerThrow = GetComponent<PlayerInput>().currentActionMap["Throw"];
     }
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && canJump == true && isHurt == false)
+        if(playerJump.triggered && canJump == true && isHurt == false)
         {
             isJumpPressed = true;
             canJump = false;
         }
 
-        if(Input.GetKeyDown(KeyCode.T) && isHurt == false)
+        if(playerAttack.triggered && isHurt == false)
         {
             myAnim.SetTrigger("Attack");
             isAttack = true;
             canJump = false;
         }
-        if(Input.GetKeyDown(KeyCode.G) && isHurt == false 
+        if(playerThrow.triggered && isHurt == false 
         && !myAnim.GetCurrentAnimatorStateInfo(0).IsName("Throw") 
         && !myAnim.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
         {
@@ -87,7 +86,8 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         // float keyAxis = Input.GetAxis("Horizontal");
-        float keyAxisLR = Input.GetAxisRaw("Horizontal");
+        // float keyAxisLR = Input.GetAxisRaw("Horizontal");
+        float keyAxisLR = playerMove.ReadValue<Vector2>().x;
         if(isAttack == true || isHurt == true)
         {
             keyAxisLR = 0;

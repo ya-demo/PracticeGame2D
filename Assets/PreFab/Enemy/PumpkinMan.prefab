@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 4620566911897606223}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.84, y: -1.71, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -98,12 +98,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63fb645fa251440b1ab86157964647b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 0
-  attackDistance: 0
-  jumpHeight: 0
-  jumpSpeed: 0
-  downSpeed: 0
-  slideSpeed: 0
+  life: 5
+  attackDistance: 3
+  jumpHeight: 3.6
+  jumpSpeed: 15
+  downSpeed: 13
+  slideSpeed: 8
 --- !u!95 &4620566911897606208
 Animator:
   serializedVersion: 3

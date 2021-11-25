@@ -29,12 +29,6 @@ public class PumpkinMan : MonoBehaviour
         isHurt = false;
         jumpAttack = false;
         canBeHurt = true;
-        life = 3;
-        attackDistance = 2.5f;
-        jumpHeight = 3.6f;
-        jumpSpeed = 15f;
-        downSpeed = 15f;
-        slideSpeed = 8f;
     }
 
     // Update is called once per frame
@@ -65,14 +59,14 @@ public class PumpkinMan : MonoBehaviour
                 }else{
                     myAnim.SetBool("Jump", false);
                     myAnim.SetBool("Down", true);
-                    Vector3 target = new Vector3(transform.position.x, -1.71f, transform.position.z);
+                    Vector3 target = new Vector3(transform.position.x, -1.85f, transform.position.z);
                     transform.position = Vector3.MoveTowards(transform.position, target, downSpeed * Time.deltaTime);
                 }
 
                 if(transform.position.y == jumpHeight)
                 {
                     isJump = false;
-                }else if(transform.position.y == -1.71f){
+                }else if(transform.position.y == -1.85f){
                     jumpAttack = false;
                     StartCoroutine("JumpToIdle");
                 }
@@ -90,11 +84,11 @@ public class PumpkinMan : MonoBehaviour
                 }
             }else if(isHurt)
             {
-                Vector3 hurtTarget = new Vector3(transform.position.x, -1.71f, transform.position.z);
+                Vector3 hurtTarget = new Vector3(transform.position.x, -1.85f, transform.position.z);
                 transform.position = Vector3.MoveTowards(transform.position, hurtTarget, downSpeed * Time.deltaTime);                
             }
         }else{
-                Vector3 hurtTarget = new Vector3(transform.position.x, -1.71f, transform.position.z);
+                Vector3 hurtTarget = new Vector3(transform.position.x, -1.85f, transform.position.z);
                 transform.position = Vector3.MoveTowards(transform.position, hurtTarget, downSpeed * Time.deltaTime);        
         }
     }
@@ -166,6 +160,8 @@ public class PumpkinMan : MonoBehaviour
                 StopAllCoroutines();
                 myAnim.SetBool("Dead", true);
                 myAnim.SetBool("Hurt", false);
+                Time.timeScale = 0.5f;
+                StartCoroutine("AfterDead");
             }else{
                 isIdle = false;
                 jumpAttack = false;
@@ -179,5 +175,10 @@ public class PumpkinMan : MonoBehaviour
             }
             canBeHurt = false;
         }
+    }
+    IEnumerator AfterDead()
+    {
+        yield return new WaitForSecondsRealtime(3f);
+        FadeInOut.instance.SceneFadeInOut("SelectLevel");
     }
 }
